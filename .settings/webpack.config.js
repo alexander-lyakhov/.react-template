@@ -37,6 +37,7 @@ module.exports = {
 
     output: {
         path: path.resolve(project.path, project.output),
+        publicPath: project.output,
         filename: 'build.js'
     },
 
