@@ -10,8 +10,8 @@ export default class baseComponent extends React.Component {
             app.componentByID = {};
         }
 
-        if (!app.componentsByName) {
-            app.componentsByName = {};
+        if (!app.components) {
+            app.components = {};
         }
 
         if (props.id) {
@@ -20,11 +20,11 @@ export default class baseComponent extends React.Component {
 
         let componentName = this.constructor.name;
 
-        if (app.componentsByName[componentName] === undefined) {
-            app.componentsByName[componentName] = [];
+        if (app.components[componentName] === undefined) {
+            app.components[componentName] = [];
         }
 
-        app.componentsByName[componentName].push(this);
+        app.components[componentName].push(this);
     }
 
     emit(fn, data) {
