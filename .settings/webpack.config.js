@@ -11,7 +11,7 @@ var path = require('path');
 
 var project = {
 
-	name: '.react-template',
+	name: 'product-cart-react',
 	output: 'dist'
 };
 
@@ -19,58 +19,67 @@ project.path = path.resolve(__dirname, project.name);
 
 module.exports = {
 
-    context: project.path,
+	context: project.path,
 
-    //=======================================================================================================
-    //  For cases when we should copy 'index.html' file into 'dist' directory
-    //=======================================================================================================
-    /*
-    entry: [
-        './index-template.html',
-        './src/main.js'
-    ],
-    */
+	//=======================================================================================================
+	//  For cases when we should copy 'index.html' file into 'dist' directory
+	//=======================================================================================================
+	/*
+	entry: [
+		'./index-template.html',
+		'./src/main.js'
+	],
+	*/
 
-    entry: {
-        app: './src/main.js'
-    },
+	entry: {
+		app: './src/main.js'
+	},
 
-    output: {
-        path: path.resolve(project.path, project.output),
-        publicPath: project.output,
-        filename: 'build.js'
-    },
+	output: {
+		path: path.resolve(project.path, project.output),
+		publicPath: project.output,
+		filename: 'build.js'
+	},
 
-    //=======================================================================================================
-    //  Watch for changes in development mode only
-    //=======================================================================================================
-    watch: NODE_ENV === 'development',
+	resolve: {
+		alias: {
+			'@': path.resolve(project.path, 'src')
+		},
+		extensions: [
+			'.js', '.jsx'
+		]
+	},
 
-    //=======================================================================================================
-    //  Make source-map enabled in development mode only
-    //=======================================================================================================
-    devtool: NODE_ENV === 'development' ? 'source-map':false,
+	//=======================================================================================================
+	//  Watch for changes in development mode only
+	//=======================================================================================================
+	watch: NODE_ENV === 'development',
 
-    //=======================================================================================================
-    //  Set server path to project folder
-    //=======================================================================================================
-    devServer: {
-        contentBase: project.path
-    },
+	//=======================================================================================================
+	//  Make source-map enabled in development mode only
+	//=======================================================================================================
+	devtool: NODE_ENV === 'development' ? 'source-map':false,
 
-    module: modules(project),
+	//=======================================================================================================
+	//  Set server path to project folder
+	//=======================================================================================================
+	devServer: {
+		contentBase: project.path
+	},
 
-    plugins: [
-        new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin("build.css", {allChunks: true})
+	module: modules(project),
+
+	plugins: [
+		new webpack.NoEmitOnErrorsPlugin(),
+		new ExtractTextPlugin("build.css", {allChunks: true})
    ]
 };
 
 if (process.env.NODE_ENV === 'production') {
 
-    module.exports.plugins = (module.exports.plugins || []).concat([
-        new UglifyJSWebpackPlugin({
-            sourceMap: false,
-        })
-    ])
+	module.exports.plugins = (module.exports.plugins || []).concat([
+		new UglifyJSWebpackPlugin({
+			sourceMap: false,
+		})
+	])
 }
